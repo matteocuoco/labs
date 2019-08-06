@@ -1,0 +1,50 @@
+body {
+    text-align: center;
+    font-family: 'Saira Stencil One', cursive;
+    background-image: url('../src/photo-1510936111840-65e151ad71bb.jpeg');
+    background-position: center;
+    background-image: no-repeat;
+    background-size: cover;
+    color: whitesmoke;
+}
+
+#btn-up, #btn-down {
+    width: 50px;
+    border-radius: 100%;
+    text-align: center;
+} 
+
+#length-control {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5em;
+}
+
+#timer-control {
+    margin: 1.5em auto;
+    display: block;
+    background: whitesmoke;
+    width: 300px;
+}
+
+.btn {
+    width: 100px;
+}
+
+#timer {
+    margin: auto;
+    font-size: 5em;
+    background-color: black;
+    width: 100%;
+    font-family: 'digital-clock'
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+
+@font-face {
+    font-family: 'digital-clock';
+    src: url('../src/digital-7.ttf');
+}
