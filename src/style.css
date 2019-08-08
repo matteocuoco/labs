@@ -31,7 +31,7 @@ body {
     width: 100px;
 }
 
-#timer {
+#time-left {
     margin: auto;
     font-size: 5em;
     background-color: black;

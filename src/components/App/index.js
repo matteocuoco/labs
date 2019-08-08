@@ -9,8 +9,8 @@ export class App extends Component {
         this.state = {
             currentTime: 25,
             currentPause: 5,
-            totalTime: 25*60,
-            totalPause: 5*60,
+            totalTime: 1*60,
+            totalPause: 1*60,
             timerState: '',
             pauseBtn: 'Pause',
             intervalState: '',
@@ -81,6 +81,7 @@ export class App extends Component {
                             totalTime: this.state.totalTime - 1
                         });
                     } else if (this.state.totalTime <=0 && this.state.totalPause > 30) {
+                        this.audioBeep.play();
                         this.setState({
                             colorTimer: {color: 'green'},
                             totalPause: this.state.totalPause - 1
@@ -120,9 +121,13 @@ export class App extends Component {
     clearTimer() {
         clearInterval(this.state.intervalState);
         this.setState({
+            currentTime: 25,
+            currentPause: 5,
+            totalTime: 25*60,
+            totalPause: 5*60,
             timerState: '',
-            totalTime: this.state.currentTime * 60,
             pauseBtn: 'Pause',
+            intervalState: '',
             colorTimer: {color: 'green'}
         });
     }
@@ -133,15 +138,15 @@ export class App extends Component {
         let time = (this.state.totalTime > 0) ? this.state.totalTime : this.state.totalPause;   
         
         //Message
-        /*
+        var message = '';
         if (this.state.timerState === 'running') {
             if (this.state.totalTime > 0) {
-                var message = 'Work hard!'
+                message = 'Work hard!';
             } else {
-                var message = 'Play hard!'
+                message = 'Play hard!';
             }
-        }
-        */
+        };
+
         let minutes = Math.floor(time / 60);
         let seconds = time - minutes*60;
 
@@ -155,26 +160,38 @@ export class App extends Component {
         return (
             <div>
                 <LengthControl
+                    label="session-label"
                     title='Work:'
+                    btnUp='session-increment'
+                    btnDown='session-decrement'
+                    typeLength='session-length'
                     incrementTime={this.incrementTime}
                     decrementTime={this.decrementTime}
                     currentTime={this.state.currentTime}
                 />
                 <LengthControl
+                    label="break-label"
                     title='Break:'
+                    btnUp='break-increment'
+                    btnDown='break-decrement'
+                    typeLength='break-length'
                     incrementTime={this.incrementPause}
                     decrementTime={this.decrementPause}
                     currentTime={this.state.currentPause}
                 />
                 <TimerControl
                     colorTimer={this.state.colorTimer}
-                    //title={message}
+                    message={message}
                     startTimer={this.startTimer}
                     pauseTimer={this.pauseTimer}
                     clearTimer={this.clearTimer}
                     pauseBtn={this.state.pauseBtn}
                     timerMin={timerMin}
                     timerSec={timerSec}
+                />
+                <audio id="beep" preload="auto" 
+                    src="https://goo.gl/65cBl1"
+                    ref={(audio) => { this.audioBeep = audio; }}
                 />
             </div>
         )
